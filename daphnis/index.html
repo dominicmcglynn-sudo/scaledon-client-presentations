@@ -523,6 +523,112 @@
             grid-template-columns: repeat(2, 1fr);
         }
     }
+
+    /* ========== PRINT STYLES ========== */
+    @media print {
+        /* Page setup */
+        @page {
+            size: A4;
+            margin: 15mm;
+        }
+
+        /* Remove body gradient background */
+        body {
+            background: white !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+
+        /* Container adjustments */
+        .dashboard-container {
+            box-shadow: none !important;
+            border-radius: 0 !important;
+            max-width: 100% !important;
+        }
+
+        /* Disable header animation */
+        .dashboard-container .header::before {
+            animation: none !important;
+        }
+
+        /* CRITICAL: Prevent sections from breaking across pages */
+        .dashboard-container .context-section,
+        .dashboard-container .metric-card,
+        .dashboard-container .strategy-section,
+        .dashboard-container .highlight-box,
+        .dashboard-container .alert-box,
+        .dashboard-container .screenshot-section,
+        .dashboard-container .proof-section,
+        .dashboard-container .defense-checklist,
+        .dashboard-container .next-steps,
+        .dashboard-container .ad-type-card,
+        .dashboard-container .cta-box,
+        .dashboard-container .screenshot-container {
+            break-inside: avoid !important;
+            page-break-inside: avoid !important;
+        }
+
+        /* Keep headers with their content */
+        h1, h2, h3, h4 {
+            break-after: avoid !important;
+            page-break-after: avoid !important;
+        }
+
+        /* Keep images with captions */
+        img {
+            break-inside: avoid !important;
+            page-break-inside: avoid !important;
+        }
+
+        /* Keep table rows together */
+        .dashboard-container .budget-table tr {
+            break-inside: avoid !important;
+            page-break-inside: avoid !important;
+        }
+
+        /* Remove hover effects */
+        .dashboard-container .budget-table tr:hover {
+            background: inherit !important;
+        }
+
+        /* Simplify shadows for print */
+        .dashboard-container .metric-card,
+        .dashboard-container .strategy-section,
+        .dashboard-container .screenshot-section,
+        .dashboard-container .budget-table {
+            box-shadow: none !important;
+            border: 1px solid #ddd !important;
+        }
+
+        /* Ensure metrics grid doesn't orphan cards */
+        .dashboard-container .metrics-grid {
+            break-inside: avoid !important;
+            page-break-inside: avoid !important;
+        }
+
+        /* Allow page break before major sections if needed */
+        .dashboard-container .section-title {
+            break-before: auto;
+            page-break-before: auto;
+        }
+
+        /* Footer stays at bottom of last page */
+        .dashboard-container .footer {
+            break-before: avoid !important;
+        }
+
+        /* Hide any print-only elements if needed */
+        .no-print {
+            display: none !important;
+        }
+
+        /* Show any screen-hidden elements for print */
+        .print-only {
+            display: block !important;
+        }
+    }
 </style>
 
 <!-- Dashboard Content -->
