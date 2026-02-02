@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>North Line Express - Amazon Due Diligence | ScaledOn</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #f79253 0%, #ed4691 100%);
+            min-height: 100vh;
+        }
+    </style>
+</head>
+<body>
+
+<style>
+    .dashboard-container {
+        font-family: 'Quicksand', sans-serif;
+        max-width: 1200px;
+        margin: 0 auto;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+
+    .dashboard-container .header {
+        background: linear-gradient(135deg, #f79253 0%, #ed4691 100%);
+        color: white;
+        padding: 40px 30px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .dashboard-container .header::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+        animation: float 20s ease-in-out infinite;
+    }
+
+    @keyframes float {
+        0%, 100% { transform: translateY(0px) rotate(0deg); }
+        50% { transform: translateY(-20px) rotate(180deg); }
+    }
+
+    .dashboard-container .header h1 {
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+        position: relative;
+        z-index: 1;
+        font-weight: 700;
+    }
+
+    .dashboard-container .header p {
+        font-size: 1.2rem;
+        opacity: 0.9;
+        position: relative;
+        z-index: 1;
+    }
+
+    .dashboard-container .main-content {
+        padding: 40px;
+    }
+
+    .dashboard-container .section-title {
+        font-size: 1.8rem;
+        color: #333;
+        margin-bottom: 25px;
+        text-align: center;
+        position: relative;
+        font-weight: 600;
+    }
+
+    .dashboard-container .section-title::after {
+        content: '';
+        position: absolute;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 3px;
+        background: linear-gradient(90deg, #f79253, #ed4691);
+        border-radius: 2px;
+    }
+
+    .dashboard-container .context-section {
+        background: #f8f9fa;
+        border-radius: 15px;
+        padding: 30px;
+        margin-bottom: 40px;
+        border-left: 5px solid #ed4691;
+    }
+
+    .dashboard-container .context-section h2 {
+        color: #333;
+        margin-bottom: 20px;
+        font-size: 1.5rem;
+        font-weight: 600;
+    }
+
+    .dashboard-container .context-section p {
+        color: #555;
+        line-height: 1.8;
+        margin-bottom: 15px;
+        font-size: 1rem;
+    }
+
+    .dashboard-container .context-section strong {
+        color: #ed4691;
+    }
+
+    .dashboard-container .metrics-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 25px;
+        margin-bottom: 40px;
+    }
+
+    .dashboard-container .metric-card {
+        background: white;
+        border-radius: 15px;
+        padding: 25px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        border: 1px solid #e0e0e0;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .dashboard-container .metric-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #f79253, #ed4691);
+    }
+
+    .dashboard-container .metric-title {
+        font-size: 0.9rem;
+        color: #666;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .dashboard-container .metric-value {
+        font-size: 1.8rem;
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 5px;
+    }
+
+    .dashboard-container .metric-change {
+        font-size: 0.85rem;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-weight: 500;
+        display: inline-block;
+    }
+
+    .dashboard-container .negative { background: #f8d7da; color: #721c24; }
+    .dashboard-container .neutral { background: #e2e3e5; color: #383d41; }
+    .dashboard-container .positive { background: #d4edda; color: #155724; }
+    .dashboard-container .warning { background: #fff3cd; color: #856404; }
+
+    .dashboard-container .strategy-section {
+        background: white;
+        border-radius: 15px;
+        padding: 30px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        margin-bottom: 40px;
+    }
+
+    .dashboard-container .strategy-section h3 {
+        color: #ed4691;
+        margin-bottom: 15px;
+        font-size: 1.3rem;
+        font-weight: 600;
+    }
+
+    .dashboard-container .strategy-section p {
+        color: #555;
+        line-height: 1.8;
+        margin-bottom: 15px;
+    }
+
+    .dashboard-container .strategy-section ul {
+        color: #555;
+        line-height: 2;
+        padding-left: 20px;
+    }
+
+    .dashboard-container .strategy-section li {
+        margin-bottom: 8px;
+    }
+
+    .dashboard-container .highlight-box {
+        background: linear-gradient(135deg, #ed4691 0%, #f79253 100%);
+        color: white;
+        border-radius: 15px;
+        padding: 30px;
+        margin-bottom: 40px;
+        text-align: center;
+    }
+
+    .dashboard-container .highlight-box h2 {
+        margin-bottom: 15px;
+        font-size: 1.5rem;
+    }
+
+    .dashboard-container .highlight-box p {
+        font-size: 1.1rem;
+        opacity: 0.95;
+        max-width: 800px;
+        margin: 0 auto;
+        line-height: 1.7;
+    }
+
+    .dashboard-container .alert-box {
+        background: #fff3cd;
+        border: 2px solid #ffc107;
+        border-radius: 15px;
+        padding: 25px 30px;
+        margin-bottom: 40px;
+    }
+
+    .dashboard-container .alert-box h3 {
+        color: #856404;
+        margin-bottom: 10px;
+        font-size: 1.3rem;
+    }
+
+    .dashboard-container .alert-box p {
+        color: #856404;
+        line-height: 1.7;
+        margin: 0;
+    }
+
+    .dashboard-container .alert-box-red {
+        background: #f8d7da;
+        border: 2px solid #dc3545;
+        border-radius: 15px;
+        padding: 25px 30px;
+        margin-bottom: 40px;
+    }
+
+    .dashboard-container .alert-box-red h3 {
+        color: #721c24;
+        margin-bottom: 10px;
+        font-size: 1.3rem;
+    }
+
+    .dashboard-container .alert-box-red p, .dashboard-container .alert-box-red li {
+        color: #721c24;
+        line-height: 1.7;
+    }
+
+    .dashboard-container .alert-box-red ul {
+        margin: 15px 0 0 0;
+        padding-left: 20px;
+    }
+
+    .dashboard-container .budget-table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        margin-top: 20px;
+    }
+
+    .dashboard-container .budget-table thead tr {
+        background: linear-gradient(135deg, #f79253 0%, #ed4691 100%);
+        color: white;
+    }
+
+    .dashboard-container .budget-table th {
+        padding: 18px 15px;
+        text-align: left;
+        font-weight: 600;
+    }
+
+    .dashboard-container .budget-table td {
+        padding: 18px 15px;
+        text-align: left;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    .dashboard-container .budget-table tr:nth-child(even) {
+        background: #f8f9fa;
+    }
+
+    .dashboard-container .next-steps {
+        background: linear-gradient(135deg, #3f56cd 0%, #ed4691 100%);
+        color: white;
+        border-radius: 15px;
+        padding: 35px;
+        margin-top: 40px;
+    }
+
+    .dashboard-container .next-steps h2 {
+        margin-bottom: 20px;
+        font-size: 1.5rem;
+    }
+
+    .dashboard-container .next-steps ol {
+        padding-left: 20px;
+        line-height: 2.2;
+        font-size: 1.05rem;
+    }
+
+    .dashboard-container .next-steps li {
+        margin-bottom: 10px;
+    }
+
+    .dashboard-container .footer {
+        background: #333;
+        color: white;
+        padding: 20px;
+        text-align: center;
+        font-size: 0.9rem;
+    }
+
+    .dashboard-container .card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 25px;
+        margin-top: 25px;
+    }
+
+    .dashboard-container .info-card {
+        background: #f8f9fa;
+        border-radius: 12px;
+        padding: 25px;
+        border-left: 4px solid #ed4691;
+    }
+
+    .dashboard-container .info-card h4 {
+        color: #333;
+        margin-bottom: 12px;
+        font-size: 1.1rem;
+        font-weight: 600;
+    }
+
+    .dashboard-container .info-card p {
+        color: #666;
+        line-height: 1.7;
+        margin: 0;
+        font-size: 0.95rem;
+    }
+
+    .dashboard-container .info-card.green {
+        border-left-color: #28a745;
+        background: #d4edda;
+    }
+
+    .dashboard-container .info-card.green h4 {
+        color: #155724;
+    }
+
+    .dashboard-container .info-card.green p {
+        color: #155724;
+    }
+
+    .dashboard-container .info-card.red {
+        border-left-color: #dc3545;
+        background: #f8d7da;
+    }
+
+    .dashboard-container .info-card.red h4 {
+        color: #721c24;
+    }
+
+    .dashboard-container .info-card.red p {
+        color: #721c24;
+    }
+
+    @media (max-width: 768px) {
+        .dashboard-container .metrics-grid { grid-template-columns: 1fr; }
+        .dashboard-container .header h1 { font-size: 2rem; }
+        .dashboard-container .card-grid { grid-template-columns: 1fr; }
+    }
+
+    @media print {
+        body { background: white !important; padding: 0 !important; }
+        .dashboard-container { box-shadow: none !important; }
+        .dashboard-container .header::before { animation: none !important; }
+        .dashboard-container .context-section,
+        .dashboard-container .metric-card,
+        .dashboard-container .strategy-section,
+        .dashboard-container .alert-box,
+        .dashboard-container .alert-box-red,
+        .dashboard-container .next-steps,
+        .dashboard-container .info-card {
+            break-inside: avoid !important;
+            page-break-inside: avoid !important;
+        }
+    }
+</style>
+
+<div class="dashboard-container">
+    <div class="header">
+        <h1>North Line Express</h1>
+        <p>Amazon Business Due Diligence | February 2, 2026</p>
+    </div>
+
+    <div class="main-content">
+
+        <!-- Executive Summary -->
+        <div class="context-section">
+            <h2>Executive Summary</h2>
+            <p>Comprehensive analysis of <strong>1,152 products</strong> from northlineexpress.com cross-referenced against Amazon reveals <strong>NLE is primarily a third-party reseller with minimal proprietary brand value</strong>.</p>
+            <p>Of their Amazon catalog, only <strong>34 products (7%)</strong> are potentially transferable NLE-owned brands. The remaining 93% consists of reseller positions competing against 51 independent sellers and Amazon 1P.</p>
+        </div>
+
+        <!-- Key Metrics -->
+        <h2 class="section-title">Product Coverage</h2>
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-title">NLE Website Products</div>
+                <div class="metric-value">1,152</div>
+                <div class="metric-change neutral">Total catalog</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-title">Found on Amazon</div>
+                <div class="metric-value">509</div>
+                <div class="metric-change neutral">44% match rate</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-title">Potentially Transferable</div>
+                <div class="metric-value">34</div>
+                <div class="metric-change warning">Only 7%</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-title">Unique Competitors</div>
+                <div class="metric-value">51</div>
+                <div class="metric-change negative">All independent</div>
+            </div>
+        </div>
+
+        <!-- Critical Alert -->
+        <div class="alert-box-red">
+            <h3>Critical Finding: Woodeze Buy Box Issue</h3>
+            <p>Even on their own Brand Registered brand (Woodeze), <strong>NLE only wins the Buy Box on 4 of 12 products (33%)</strong>. The remaining 8 products have competitors or no active seller winning.</p>
+            <p style="margin-top: 15px;">This demonstrates that brand ownership alone does not guarantee marketplace control.</p>
+        </div>
+
+        <!-- Transferability Breakdown -->
+        <div class="strategy-section">
+            <h2 class="section-title">Transferability Assessment</h2>
+            <table class="budget-table">
+                <thead>
+                    <tr>
+                        <th>Classification</th>
+                        <th>Products</th>
+                        <th>% of Amazon Catalog</th>
+                        <th>Value Assessment</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Potentially Transferable (NLE Brand)</strong></td>
+                        <td>34</td>
+                        <td>7%</td>
+                        <td style="color: #28a745;">Has value</td>
+                    </tr>
+                    <tr>
+                        <td><strong>NLE Sells (Reseller Position)</strong></td>
+                        <td>23</td>
+                        <td>5%</td>
+                        <td style="color: #ffc107;">Limited value</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Amazon 1P (No Value)</strong></td>
+                        <td>62</td>
+                        <td>12%</td>
+                        <td style="color: #dc3545;">Cannot compete</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Competitor Sells (No Value)</strong></td>
+                        <td>202</td>
+                        <td>40%</td>
+                        <td style="color: #dc3545;">No defensible position</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Unknown Seller</strong></td>
+                        <td>188</td>
+                        <td>37%</td>
+                        <td style="color: #6c757d;">Requires verification</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- NLE-Owned Brands -->
+        <div class="strategy-section">
+            <h2 class="section-title">NLE-Owned Brands (Potentially Transferable)</h2>
+            <div class="card-grid">
+                <div class="info-card green">
+                    <h4>Woodeze</h4>
+                    <p><strong>12 products</strong><br>
+                    NLE has Buy Box on 4 (33%)<br>
+                    <strong>Has Brand Store</strong> (Brand Registry confirmed)</p>
+                </div>
+                <div class="info-card green">
+                    <h4>Copperfield Chimney Supply</h4>
+                    <p><strong>12 products</strong><br>
+                    NLE has Buy Box on 12 (100%)<br>
+                    No brand store found</p>
+                </div>
+                <div class="info-card green">
+                    <h4>Heat Fab</h4>
+                    <p><strong>10 products</strong><br>
+                    NLE has Buy Box on 10 (100%)<br>
+                    No brand store found</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Amazon 1P Brands -->
+        <div class="strategy-section">
+            <h2 class="section-title">Amazon 1P Brands (No Value)</h2>
+            <p>These brands are sold directly by Amazon. NLE cannot compete on these listings:</p>
+            <div class="card-grid">
+                <div class="info-card red">
+                    <h4>ShelterLogic</h4>
+                    <p><strong>24 products</strong> - Amazon 1P</p>
+                </div>
+                <div class="info-card red">
+                    <h4>Pilgrim</h4>
+                    <p><strong>13 products</strong> - Amazon 1P</p>
+                </div>
+                <div class="info-card red">
+                    <h4>Minuteman International</h4>
+                    <p><strong>11 products</strong> - Amazon 1P</p>
+                </div>
+                <div class="info-card red">
+                    <h4>Fire Sense</h4>
+                    <p><strong>7 products</strong> - Amazon 1P</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Seller Verification -->
+        <div class="strategy-section">
+            <h2 class="section-title">Seller Address Verification</h2>
+            <p>We analyzed business addresses for all 52 unique sellers competing on NLE products:</p>
+            <ul>
+                <li><strong>1 seller</strong> matches NLE's address (Online Stores PA LLC only)</li>
+                <li><strong>51 sellers</strong> confirmed as independent competitors</li>
+                <li>No hidden affiliates or related entities discovered</li>
+            </ul>
+            <div class="context-section" style="margin-top: 20px; margin-bottom: 0;">
+                <h2>NLE Parent Company</h2>
+                <p><strong>Business Name:</strong> Online Stores PA LLC</p>
+                <p><strong>Address:</strong> 1000 Westinghouse Dr Suite 1, New Stanton, PA 15672</p>
+                <p><strong>Founded:</strong> 2002 by Lisa and Kevin Hickey</p>
+                <p><strong>Employees:</strong> ~130</p>
+                <p><strong>Other Retail Brands:</strong> Lightup, US Flag Store, English Tea Store, Discount Safety Gear</p>
+            </div>
+        </div>
+
+        <!-- Key Risks -->
+        <div class="alert-box-red">
+            <h3>Key Risks for Acquisition</h3>
+            <ul>
+                <li><strong>Only 34 products (7%)</strong> are potentially transferable NLE brands</li>
+                <li><strong>Only Woodeze has Brand Registry</strong> - other "owned" brands have no brand stores</li>
+                <li><strong>Even on Woodeze, NLE only wins Buy Box on 4/12 products (33%)</strong></li>
+                <li><strong>51 independent competitors</strong> already selling the same products</li>
+                <li><strong>Amazon 1P sells 62 products directly</strong> - cannot compete with these</li>
+                <li><strong>85%+ of catalog has no defensible position</strong></li>
+            </ul>
+        </div>
+
+        <!-- Highlight Box -->
+        <div class="highlight-box">
+            <h2>Bottom Line</h2>
+            <p>The Amazon business (~$2M claimed revenue) has minimal transferable value. NLE is primarily a reseller competing against 51 other sellers and Amazon itself. Only 34 products across 3 brands may transfer with the business.</p>
+        </div>
+
+        <!-- Recommendations -->
+        <div class="next-steps">
+            <h2>Recommendations</h2>
+            <ol>
+                <li><strong>Value Amazon business at near-zero</strong> - No proprietary products, no brand protection on most SKUs</li>
+                <li><strong>Focus due diligence on dot-com business</strong> - Direct customer relationships, email list, SEO value</li>
+                <li><strong>Request Seller Central data</strong> - Full ASIN list, sales by SKU, Buy Box win rates, profit margins</li>
+                <li><strong>Verify IP ownership</strong> - Confirm trademark ownership for Woodeze, Copperfield, Heat Fab</li>
+                <li><strong>Consider excluding Amazon from deal</strong> - Or price it at FBA inventory cost basis only</li>
+            </ol>
+        </div>
+
+    </div>
+
+    <div class="footer">
+        <p>Prepared by ScaledOn | Confidential - For Fireside Internal Use Only | February 2, 2026</p>
+    </div>
+</div>
+
+</body>
+</html>
