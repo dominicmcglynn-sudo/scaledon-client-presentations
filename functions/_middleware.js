@@ -1,10 +1,10 @@
 // Basic Auth middleware for Cloudflare Pages
 // Username: scaledon
-// Password: daphnis2026
+// Password: scaledon2026
 
 const CREDENTIALS = {
   username: 'scaledon',
-  password: 'daphnis2026'
+  password: 'scaledon2026'
 };
 
 function unauthorized() {

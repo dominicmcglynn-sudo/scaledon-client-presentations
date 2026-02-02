@@ -1,0 +1,24 @@
+{
+  "name": "client-presentations",
+  "version": "1.0.0",
+  "description": "Static HTML presentations for ScaledOn clients.",
+  "main": "generate-pdf.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dominicmcglynn-sudo/scaledon-client-presentations.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/dominicmcglynn-sudo/scaledon-client-presentations/issues"
+  },
+  "homepage": "https://github.com/dominicmcglynn-sudo/scaledon-client-presentations#readme",
+  "dependencies": {
+    "playwright": "^1.57.0"
+  }
+}
